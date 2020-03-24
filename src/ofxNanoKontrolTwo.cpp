@@ -39,6 +39,7 @@ void ofxNanoKontrolTwo::setup() {
 }
 
 void ofxNanoKontrolTwo::newMidiMessage(ofxMidiMessage& msg) {
+    lock();
     // add the latest message to the message queue
     midiMessages.push_back(msg);
 
@@ -46,6 +47,7 @@ void ofxNanoKontrolTwo::newMidiMessage(ofxMidiMessage& msg) {
     while(midiMessages.size() > maxMessages) {
         midiMessages.erase(midiMessages.begin());
     }
+    unlock();
 }
 
 void ofxNanoKontrolTwo::close() {
@@ -55,8 +57,9 @@ void ofxNanoKontrolTwo::close() {
 }
 
 void ofxNanoKontrolTwo::update(){
-    for(unsigned int i = 0; i < midiMessages.size(); ++i) {
-        ofxMidiMessage &message = midiMessages[i];
+    int midiMessageSize = midiMessages.size();
+    for(unsigned int messageId = 0; messageId < midiMessageSize; messageId++) {
+        ofxMidiMessage &message = midiMessages[messageId];
 
         if(message.status < MIDI_SYSEX) {
             //text << "chan: " << message.channel << endl;
@@ -138,6 +141,9 @@ void ofxNanoKontrolTwo::update(){
         }
     }
 
+
+    lock();
     midiMessages.clear();
+    unlock();
 
 }

@@ -11,7 +11,7 @@
 #include "ofMain.h"
 #include <ofxMidi.h>
 
-class ofxNanoKontrolTwo : public ofxMidiListener{
+class ofxNanoKontrolTwo : public ofxMidiListener, public ofThread{
 
 struct trackCallbacks {
     ofEvent<bool> left;
