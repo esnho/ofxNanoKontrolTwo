@@ -68,83 +68,70 @@ void ofxNanoKontrolTwo::update(){
                 float value = (float) message.value / 127.0f;
                 bool booleanValue = value > 0.0f;
 
-                {
-                    // the ctrlModulo identifies all right controls except for sliders which default midi number is >120 and need to be modulated with 120
-                    // controlIdentifier check which control of the right control groups has been touched
-                    int ctrlModulo = message.control % 16;
-                    ctrlModulo = message.control % 120 < 8 ? message.control % 120 : ctrlModulo;
+                // the ctrlModulo identifies all right controls except for sliders which default midi number is >120 and need to be modulated with 120
+                // controlIdentifier check which control of the right control groups has been touched
+                int ctrlModulo = message.control % 120 < 8 ? message.control % 120 : message.control % 16;
 
-                    if (ctrlModulo < 8) {
-                        int controlIdentifier = floor(message.control / 16.0f);
+                if (ctrlModulo < 8) {
+                    int controlIdentifier = floor(message.control / 16.0f);
 
-                        switch (controlIdentifier) {
-                            case 1:
-                                ofNotifyEvent(callbacks.ctrl[ctrlModulo].knob, value);
-                                values.ctrl[ctrlModulo].knob = value;
-                                break;
-                            case 2:
-                                ofNotifyEvent(callbacks.ctrl[ctrlModulo].solo, booleanValue);
-                                values.ctrl[ctrlModulo].solo = booleanValue;
-                                break;
-                            case 3:
-                                ofNotifyEvent(callbacks.ctrl[ctrlModulo].mute, booleanValue);
-                                values.ctrl[ctrlModulo].mute = booleanValue;
-                                break;
-                            case 4:
-                                ofNotifyEvent(callbacks.ctrl[ctrlModulo].rec, booleanValue);
-                                values.ctrl[ctrlModulo].rec = booleanValue;
-                                break;
-                            default:
-                                ofNotifyEvent(callbacks.ctrl[ctrlModulo].slider, value);
-                                values.ctrl[ctrlModulo].slider = value;
-                                break;
-                        }
+                    switch (controlIdentifier) {
+                        case 1:
+                            values.ctrl[ctrlModulo].knob = value;
+                            ofNotifyEvent(callbacks.ctrl[ctrlModulo].knob, value);
+                            break;
+                        case 2:
+                            values.ctrl[ctrlModulo].solo = booleanValue;
+                            ofNotifyEvent(callbacks.ctrl[ctrlModulo].solo, booleanValue);
+                            break;
+                        case 3:
+                            values.ctrl[ctrlModulo].mute = booleanValue;
+                            ofNotifyEvent(callbacks.ctrl[ctrlModulo].mute, booleanValue);
+                            break;
+                        case 4:
+                            values.ctrl[ctrlModulo].rec = booleanValue;
+                            ofNotifyEvent(callbacks.ctrl[ctrlModulo].rec, booleanValue);
+                            break;
+                        default:
+                            values.ctrl[ctrlModulo].slider = value;
+                            ofNotifyEvent(callbacks.ctrl[ctrlModulo].slider, value);
+                            break;
                     }
-                }
-
-                if (message.control == 46) {
-                    ofNotifyEvent(callbacks.cycle, booleanValue);
+                } else if (message.control == 46) {
                     values.cycle = booleanValue;
-                }
+                    ofNotifyEvent(callbacks.cycle, booleanValue);
 
-                if (message.control == 58) {
-                    ofNotifyEvent(callbacks.track.left, booleanValue);
+                } else if (message.control == 58) {
                     values.track.left = booleanValue;
-                }
+                    ofNotifyEvent(callbacks.track.left, booleanValue);
 
-                if (message.control == 59) {
-                    ofNotifyEvent(callbacks.track.right, booleanValue);
+                } else if (message.control == 59) {
                     values.track.right = booleanValue;
-                }
+                    ofNotifyEvent(callbacks.track.right, booleanValue);
 
-                if (message.control == 43) {
-                    ofNotifyEvent(callbacks.player.rewind, booleanValue);
+                } else if (message.control == 43) {
                     values.player.rewind = booleanValue;
-                }
+                    ofNotifyEvent(callbacks.player.rewind, booleanValue);
 
-                if (message.control == 44) {
-                    ofNotifyEvent(callbacks.player.forward, booleanValue);
+                } else if (message.control == 44) {
                     values.player.forward = booleanValue;
-                }
+                    ofNotifyEvent(callbacks.player.forward, booleanValue);
 
-                if (message.control == 42) {
-                    ofNotifyEvent(callbacks.player.stop, booleanValue);
+                } else if (message.control == 42) {
                     values.player.stop = booleanValue;
-                }
+                    ofNotifyEvent(callbacks.player.stop, booleanValue);
 
-                if (message.control == 60) {
-                    ofNotifyEvent(callbacks.marker.set, booleanValue);
+                } else if (message.control == 60) {
                     values.marker.set = booleanValue;
-                }
+                    ofNotifyEvent(callbacks.marker.set, booleanValue);
 
-                if (message.control == 61) {
-                    ofNotifyEvent(callbacks.marker.left, booleanValue);
+                } else if (message.control == 61) {
                     values.marker.left = booleanValue;
-                }
+                    ofNotifyEvent(callbacks.marker.left, booleanValue);
 
-                if (message.control == 62) {
-                    ofNotifyEvent(callbacks.marker.right, booleanValue);
+                } else if (message.control == 62) {
                     values.marker.right = booleanValue;
+                    ofNotifyEvent(callbacks.marker.right, booleanValue);
                 }
 
             }
