@@ -87,6 +87,9 @@ public:
     void update();
     void close();
 
+    void setPortID(int port);
+    vector<std::string> listPorts();
+
     void newMidiMessage(ofxMidiMessage& eventArgs);
 
     callbacksStruct callbacks;
@@ -97,6 +100,8 @@ public:
 private:
     ofxMidiIn midiIn;
     std::vector<ofxMidiMessage> midiMessages;
+
+    int portID = 0;
 
 
 };

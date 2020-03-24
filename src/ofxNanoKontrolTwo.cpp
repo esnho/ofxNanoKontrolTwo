@@ -7,6 +7,20 @@
 
 #include "ofxNanoKontrolTwo.h"
 
+void ofxNanoKontrolTwo::setPortID(int port) {
+    portID = port;
+}
+
+vector<std::string> ofxNanoKontrolTwo::listPorts() {
+    vector<std::string> portNames;
+    for(unsigned int i = 0; i < midiIn.getNumInPorts(); ++i){
+        ofLogNotice("ofxMidiIn ") <<  i << " : " << midiIn.getInPortName(i);
+        portNames.push_back(midiIn.getInPortName(i));
+    }
+
+    return portNames;
+}
+
 void ofxNanoKontrolTwo::setup() {
 
     for (int i = 0; i < 8; i++) {
@@ -18,12 +32,8 @@ void ofxNanoKontrolTwo::setup() {
         values.ctrl.push_back(controlValuesGroup);
 
     }
-
-    // print input ports to console
-    midiIn.listInPorts();
-
     // open port by number (you may need to change this)
-    midiIn.openPort(0);
+    midiIn.openPort(portID);
 
     // don't ignore sysex, timing, & active sense messages,
     // these are ignored by default
