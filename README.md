@@ -47,3 +47,4 @@ instancedOfxNanoKontrolTwo.callbacks
             mute -> bool
             rec -> bool
 ```
+![Image description](https://raw.githubusercontent.com/esnho/ofxNanoKontrolTwo/master/example-app-preview.png)
