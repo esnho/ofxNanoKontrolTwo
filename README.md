@@ -17,6 +17,12 @@ Compatibility
 ------------
 Only tested on MacOS Catalina and OF v0.11.0
 
+Change default port
+------------
+Retrieve a `vector<std:string>` of ports using `instancedOfxNanoKontrolTwo.listPorts()` method.
+
+Then find your NanoKontrol port id and set the port ID using `instancedOfxNanoKontrolTwo.setPortID(yourPortID)` BEFORE calling `setup()`.
+
 Available values and callbacks
 ------------
 Checkout the example for a working demo.
