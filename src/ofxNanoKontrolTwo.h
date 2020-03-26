@@ -83,7 +83,7 @@ struct valuesStruct {
 };
 
 public:
-    void setup();
+    bool setup();
     void update();
     void close();
 

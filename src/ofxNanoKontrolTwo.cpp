@@ -21,7 +21,7 @@ vector<std::string> ofxNanoKontrolTwo::listPorts() {
     return portNames;
 }
 
-void ofxNanoKontrolTwo::setup() {
+bool ofxNanoKontrolTwo::setup() {
 
     for (int i = 0; i < 8; i++) {
         controlsCallbacks controlCallbacksGroup;
@@ -33,7 +33,7 @@ void ofxNanoKontrolTwo::setup() {
 
     }
     // open port by number (you may need to change this)
-    midiIn.openPort(portID);
+    bool status = midiIn.openPort(portID);
 
     // don't ignore sysex, timing, & active sense messages,
     // these are ignored by default
@@ -44,6 +44,8 @@ void ofxNanoKontrolTwo::setup() {
 
     // print received messages to the console
     midiIn.setVerbose(false);
+
+    return status;
 }
 
 void ofxNanoKontrolTwo::newMidiMessage(ofxMidiMessage& msg) {

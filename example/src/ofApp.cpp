@@ -4,7 +4,11 @@
 void ofApp::setup(){
     ofClear(0.75, 1);
 
-    nanoK.setup();
+    if (nanoK.setup()) {
+        ofLogNotice("setup ok");
+    } else {
+        ofLogNotice("Can't setup MIDI");
+    }
 
     /*
      available nanoK.values and nanoK.callbacks:
