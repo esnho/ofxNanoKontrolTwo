@@ -3,7 +3,7 @@ ofxNanoKontrolTwo
 
 Introduction
 ------------
-Expose callbacks and values read from Korg Nanokontrol 2
+ofxNanoKontrolTwo simplify the use of Nanokontrol 2 with Openframeworks. Expose callbacks and values read from Korg Nanokontrol 2
 
 Installation
 ------------
